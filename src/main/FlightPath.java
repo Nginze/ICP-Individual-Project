@@ -51,7 +51,7 @@ public class FlightPath {
        return airports;
     }
 
-    public Airport getAirportById(Long airportId) throws IOException {
+    public Airport getAirportById(String airportCode) throws IOException {
         BufferedReader airportCSV = new BufferedReader(new FileReader("C:\\Users\\User\\Desktop\\ICP project\\src\\resources\\airports.csv"));
         String record;
         while((record = airportCSV.readLine()) != null) {
@@ -66,7 +66,7 @@ public class FlightPath {
 //            Double longitude = Double.parseDouble(recordToList[7]);
 //            Integer altitude = Integer.parseInt(recordToList[8]);
 
-            if (currentAirportId.equals(airportId)) {
+            if (iataCode.equals(airportCode)) {
                 return new Airport(currentAirportId, currentAirportName, currentAirportCity, currentAirportCountry, iataCode, icaoCode);
             }
         }
@@ -77,13 +77,14 @@ public class FlightPath {
     public Node getFlightPath(Airport source, Airport destination) throws IOException {
         Queue<Node> routesFrontier = new LinkedList<>();
         routesFrontier.add(new Node(source));
+//        System.out.println(destination.getIataCode());
         while(!routesFrontier.isEmpty()){
             Node current = routesFrontier.poll();
-            Long destinationId = current.getRoute().getDestinationAirportId();
-            Airport destination = getAirportById(destinationId);
-            for(Route route: getAvailableRoutes(destination)){
-                Node child = new Node(current.getRoute(),route);
-                if(route.getDestinationAirportId().equals("160")){
+            for(Route route: getAvailableRoutes(current.getAirport())){
+                Airport flightDestination = getAirportById(route.getDestinationAirportCode());
+                System.out.println((flightDestination));
+                Node child = new Node(current, flightDestination);
+                if(route.getDestinationAirportCode().equals(destination.getIataCode())){
                     return child;
                 }
                 routesFrontier.add(child);
@@ -118,8 +119,9 @@ public class FlightPath {
 
         FlightPath fp = new FlightPath("C:\\Users\\User\\Desktop\\ICP project\\src\\main\\input.txt", "C:\\Users\\User\\Desktop\\ICP project\\src\\main\\output.txt");
         HashMap<String, Airport> airports = fp.getSourceAndDestinationAirportMeta();
-        System.out.println(airports.get("source"));
-        System.out.println(airports.get("destination"));
-        fp.getFlightPath(airports.get("source"));
+        Stack<Node> path = fp.getFlightPath(airports.get("source"), airports.get("destination")).getSolutionPath();
+        while(!path.isEmpty()){
+            System.out.println(path.pop().getAirport());
+        }
     }
 }

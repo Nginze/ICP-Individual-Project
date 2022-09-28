@@ -1,24 +1,44 @@
 package main;
 
+import java.util.Stack;
+
 public class Node {
-    private Route parentAirport;
-    private Route airport;
+    private Node parent;
+    private Airport airport;
 
-    public Node(Route airport) {
-        this.parentAirport = null;
+    public Node(Airport airport) {
+        this.parent= null;
         this.airport = airport;
     }
 
-    public Node(Route parentAirport, Route airport) {
-        this.parentAirport = parentAirport;
+    public Node(Node parent, Airport airport) {
+        this.parent = parent;
         this.airport = airport;
     }
 
-    public Route getParentAirport() {
-        return parentAirport;
+    public Node getParent() {
+        return parent;
     }
 
-    public Route getAirport() {
+    public Airport getAirport() {
         return airport;
     }
+
+    public Stack<Node> getSolutionPath(){
+        Node node = this;
+        Stack<Node> path = new Stack<>();
+        while(node != null){
+           path.push(node);
+           node = node.parent;
+        }
+        return path;
+    }
+    @Override
+    public String toString() {
+        return "Node{" +
+                "parent=" + parent +
+                ", airport=" + airport +
+                '}';
+    }
+
 }
