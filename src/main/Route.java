@@ -6,10 +6,10 @@ public class Route {
     private String sourceAirportCode;
 //    private Long sourceAirportId;
     private String destinationAirportCode;
-//    private Long destinationAirportId;
+    private String destinationAirportId;
 //    private Integer stops;
 
-    public Route(String airlineCode, String sourceAirportCode, String destinationAirportCode) {
+    public Route(String airlineCode, String sourceAirportCode, String destinationAirportCode, String destinationAirportId) {
         this.airlineCode = airlineCode;
 //        this.airlineId = airlineId;
         this.sourceAirportCode = sourceAirportCode;
@@ -17,6 +17,7 @@ public class Route {
         this.destinationAirportCode = destinationAirportCode;
 //        this.destinationAirportId = destinationAirportId;
 //        this.stops = stops;
+        this.destinationAirportId = destinationAirportId;
     }
 
     public String getAirlineCode() {
@@ -37,6 +38,10 @@ public class Route {
 
     public String getDestinationAirportCode() {
         return destinationAirportCode;
+    }
+
+    public String getDestinationAirportId() {
+        return destinationAirportId;
     }
 
 //    public Long getDestinationAirportId() {

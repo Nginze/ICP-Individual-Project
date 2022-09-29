@@ -10,6 +10,11 @@ public class Airline {
     private String country;
     private Boolean isActive;
 
+    public Airline(Integer airlineId, String iataCode) {
+        this.airlineId = airlineId;
+        this.iataCode = iataCode;
+    }
+
     public Airline(Integer airlineId, String airlineName, String airlineAlias, String iataCode, String icaoCode, String callsign, String country, Boolean isActive) {
         this.airlineId = airlineId;
         this.airlineName = airlineName;
