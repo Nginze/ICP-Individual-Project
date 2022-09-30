@@ -327,6 +327,10 @@ public class FlightPath {
             fp.outputDataToFile(path);
         }catch(NullPointerException npe){
            npe.printStackTrace();
+        }catch(IOException ie){
+            ie.printStackTrace();
         }
+
+
     }
 }

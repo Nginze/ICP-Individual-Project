@@ -1,4 +1,5 @@
-5G from ACC to KMS 0 stops 
-Total Flights: 1
-Total Distance: 199.99169986445122Km
+EK from ACC to DXB 0 stops 
+CA from DXB to PEK 0 stops 
+Total Flights: 2
+Total Distance: 17978.27876778524Km
 Optimality criteria: Distance
