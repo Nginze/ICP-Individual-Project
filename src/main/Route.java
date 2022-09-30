@@ -1,54 +1,87 @@
 package main;
 
+/**
+ * It's a class that represents a route.
+ */
 public class Route {
     private String airlineCode;
-//    private Long airlineId;
+    private String airlineId;
     private String sourceAirportCode;
-//    private Long sourceAirportId;
     private String destinationAirportCode;
     private String destinationAirportId;
-//    private Integer stops;
+    private Boolean codeshare;
+    private Integer stops;
 
-    public Route(String airlineCode, String sourceAirportCode, String destinationAirportCode, String destinationAirportId) {
+    public Route(String airlineId, String airlineCode, String sourceAirportCode, String destinationAirportCode, String destinationAirportId, Boolean codeshare, Integer stops) {
         this.airlineCode = airlineCode;
-//        this.airlineId = airlineId;
+        this.airlineId = airlineId;
         this.sourceAirportCode = sourceAirportCode;
-//        this.sourceAirportId = sourceAirportId;
         this.destinationAirportCode = destinationAirportCode;
-//        this.destinationAirportId = destinationAirportId;
-//        this.stops = stops;
+        this.codeshare = codeshare;
+        this.stops = stops;
         this.destinationAirportId = destinationAirportId;
     }
 
+   /**
+    * This function returns the airline code
+    * 
+    * @return The airline code.
+    */
     public String getAirlineCode() {
         return airlineCode;
     }
 
-//    public Long getAirlineId() {
-//        return airlineId;
-//    }
+    /**
+     * This function returns the airlineId of the flight.
+    * 
+    * @return The airlineId is being returned.
+    */
+    public String getAirlineId() {
+        return airlineId;
+    }
 
+    /**
+     * It returns the source airport code.
+     * 
+     * @return The sourceAirportCode is being returned.
+     */
     public String getSourceAirportCode() {
         return sourceAirportCode;
     }
 
-//    public Long getSourceAirportId() {
-//        return sourceAirportId;
-//    }
-
+    /**
+     * This function returns the destination airport code
+     * 
+     * @return The destination airport code.
+     */
     public String getDestinationAirportCode() {
         return destinationAirportCode;
     }
 
+    /**
+     * This function returns the destination airport id.
+     * 
+     * @return The destinationAirportId is being returned.
+     */
     public String getDestinationAirportId() {
         return destinationAirportId;
     }
 
-//    public Long getDestinationAirportId() {
-//        return destinationAirportId;
-//    }
-//
-//    public Integer getStops() {
-//        return stops;
-//    }
+    /**
+     * This function returns the codeshare value of the flight
+     * 
+     * @return The codeshare variable is being returned.
+     */
+    public Boolean getCodeshare() {
+        return codeshare;
+    }
+
+    /**
+     * This function returns the number of stops
+     * 
+     * @return The stops variable is being returned.
+     */
+    public Integer getStops() {
+        return stops;
+    }
 }
