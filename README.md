@@ -5,14 +5,13 @@
 
 **Entry point of the Programme **
 
--src
- -main
+-src\main
   - Airline.java
   - Airport.java
   - FlightPath.java
   - Node.java
   - Route.java
- -resources
+ -src\resources
   - airlines.csv
   - routes.csv
   - aiports.csv
