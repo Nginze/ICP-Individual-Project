@@ -1,4 +1,0 @@
-N/A from ACC to TKD 0 stops 
-Total Flights: 1
-Total Distance: 194.71696685388997Km
-Optimality criteria: Distance

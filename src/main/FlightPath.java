@@ -15,9 +15,10 @@ public class FlightPath {
     String projectDir = Paths.get("").toAbsolutePath().toString();
     private FileReader inputFile;
     private FileWriter outputFile;
+    private String outputFileName; 
 
     public FlightPath( String inputFileName) throws IOException {
-        String outputFileName  = String.format("%s_output.txt",inputFileName.replace(".txt",""));
+        this.outputFileName = String.format("%s_output.txt",inputFileName.replace(".txt",""));
         this.inputFile = new FileReader(inputFileName);
         this.outputFile = new FileWriter(outputFileName);
     }
@@ -180,9 +181,9 @@ public class FlightPath {
         routesFrontier.add(startAirport);
         while(!routesFrontier.isEmpty()){
             Node current = routesFrontier.poll();
-            System.out.println(current.getDistance());
             explored.add(current.getAirport().getIataCode());
             if(current.getAirport().getIataCode().equals(destination.getIataCode())){
+                System.out.println(String.format("Found Route to Destination !, Check %s",outputFileName));
                 return current;
             }
             for(Route route: getAvailableRoutes(current.getAirport())){
@@ -198,7 +199,6 @@ public class FlightPath {
                         }
                     }catch(NullPointerException npe){
                         blacklist.add(route.getDestinationAirportCode());
-                        System.out.println(route.getDestinationAirportCode());
                     }
                 }
             }
@@ -225,7 +225,6 @@ public class FlightPath {
             String currentDestinationCode = recordToList[4];
             String currentDestinationId = recordToList[5];
             Boolean codeshare = recordToList[6].equals("Y") && !recordToList[4].equals("DOH") ? true : false;
-
             Integer currentStops = Integer.parseInt(recordToList[7]) ;
 
             if(airport.getIataCode().equals(currentSourceCode)){
@@ -295,7 +294,7 @@ public class FlightPath {
      * 
      * @param path Stack of nodes
      */
-    public void outputDataToFile(Stack<Node> path) throws IOException {
+    public void outputDataToFile(Stack<Node> path) throws IOException, NullPointerException {
         BufferedWriter outputWriter = new BufferedWriter(outputFile);
         Double TotalDistance = 0D;
         Integer listCount = 0;
@@ -323,23 +322,9 @@ public class FlightPath {
         }
         outputWriter.write("Total Flights: " + TotalFlights + "\n");
         outputWriter.write("Total additional stops: " + TotalStops + "\n");
-        outputWriter.write("Total Distance: " + TotalDistance + "Km" + "\n");
+        outputWriter.write("Total Distance: " + Math.round(TotalDistance) + "Km" + "\n");
         outputWriter.write("Optimality criteria: Distance");
         outputWriter.close();
     }
-    public static void main(String[] args) throws IOException {
-        String userPath = Paths.get("").toAbsolutePath().toString();
-        try{
-            FlightPath fp = new FlightPath(userPath + "/src/main/accra-takoradi.txt");
-            HashMap<String, Airport> airports = fp.getSourceAndDestinationAirportMeta();
-            Stack<Node> path = fp.getOptimalFlightPath(airports.get("source"), airports.get("destination")).getSolutionPath();
-            fp.outputDataToFile(path);
-        }catch(NullPointerException npe){
-           npe.printStackTrace();
-        }catch(IOException ie){
-            ie.printStackTrace();
-        }
 
-
-    }
 }
