@@ -1,5 +1,5 @@
-1. FR from STN to DUB 0 stops 
+1. EK from DXB to RUH 0 stops 
 Total Flights: 1
 Total additional stops: 0
-Total Distance: 471Km
+Total Distance: 873Km
 Optimality criteria: Distance
