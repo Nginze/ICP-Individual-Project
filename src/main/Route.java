@@ -1,7 +1,9 @@
 package main;
 
 /**
+ * 
  * It's a class that represents a route.
+ * @author Jonathan
  */
 public class Route {
     private String airlineCode;

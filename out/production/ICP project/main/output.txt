@@ -1,4 +1,4 @@
-5G from ACC to KMS 0 stops 
+N/A from ACC to TKD 0 stops 
 Total Flights: 1
-Total Distance: 199.99169986445122Km
+Total Distance: 194.71696685388997Km
 Optimality criteria: Distance

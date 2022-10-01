@@ -5,8 +5,10 @@ import java.nio.file.Paths;
 import java.util.*;
 
 /**
+ * 
  * It takes in a source and destination airport and returns the optimal flight path between the two
  * airports
+ * @author Jonathan
  */
 public class FlightPath {
 
@@ -14,7 +16,8 @@ public class FlightPath {
     private FileReader inputFile;
     private FileWriter outputFile;
 
-    public FlightPath( String inputFileName, String outputFileName) throws IOException {
+    public FlightPath( String inputFileName) throws IOException {
+        String outputFileName  = String.format("%s_output.txt",inputFileName.replace(".txt",""));
         this.inputFile = new FileReader(inputFileName);
         this.outputFile = new FileWriter(outputFileName);
     }
@@ -295,25 +298,31 @@ public class FlightPath {
     public void outputDataToFile(Stack<Node> path) throws IOException {
         BufferedWriter outputWriter = new BufferedWriter(outputFile);
         Double TotalDistance = 0D;
+        Integer listCount = 0;
+        Integer TotalStops = 0;
         Integer TotalFlights = path.size() - 1;
         while(!path.isEmpty()){
             Node node = path.pop();
             try{
                 TotalDistance = Math.max(TotalDistance, node.getDistance());
                 if(node.getParent() != null){
+                    TotalStops += node.getStops();
                     if(node.getAirline() != null){
-                        outputWriter.write(node.getAirline().getIataCode() + " from " + node.getParent().getAirport().getIataCode() + " to " + node.getAirport().getIataCode() + " " + node.getStops() + " stops " +  "\n");
+                        outputWriter.write(listCount + ". " + node.getAirline().getIataCode() + " from " + node.getParent().getAirport().getIataCode() + " to " + node.getAirport().getIataCode() + " " + node.getStops() + " stops " +  "\n");
                     }else{
-                        outputWriter.write("N/A"+ " from " + node.getParent().getAirport().getIataCode() + " to " + node.getAirport().getIataCode() + " " + node.getStops() + " stops " + "\n");
+                        outputWriter.write(listCount + ". " + "N/A"+ " from " + node.getParent().getAirport().getIataCode() + " to " + node.getAirport().getIataCode() + " " + node.getStops() + " stops " + "\n");
                     }
                 }
             }catch(NullPointerException npe){
                 System.out.println("this is node is causing");
                 System.out.println(node.getAirline());
                npe.printStackTrace();
+            }finally{
+                listCount += 1;
             }
         }
         outputWriter.write("Total Flights: " + TotalFlights + "\n");
+        outputWriter.write("Total additional stops: " + TotalStops + "\n");
         outputWriter.write("Total Distance: " + TotalDistance + "Km" + "\n");
         outputWriter.write("Optimality criteria: Distance");
         outputWriter.close();
@@ -321,7 +330,7 @@ public class FlightPath {
     public static void main(String[] args) throws IOException {
         String userPath = Paths.get("").toAbsolutePath().toString();
         try{
-            FlightPath fp = new FlightPath(userPath + "/src/main/input.txt", userPath + "/src/main/output.txt");
+            FlightPath fp = new FlightPath(userPath + "/src/main/accra-takoradi.txt");
             HashMap<String, Airport> airports = fp.getSourceAndDestinationAirportMeta();
             Stack<Node> path = fp.getOptimalFlightPath(airports.get("source"), airports.get("destination")).getSolutionPath();
             fp.outputDataToFile(path);

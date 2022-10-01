@@ -4,7 +4,9 @@ import java.util.Objects;
 import java.util.Stack;
 
 /**
+ * 
  * A class that represents a node in a graph.
+ * @author Jonathan
  */
 public class Node {
     private Node parent;

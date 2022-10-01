@@ -1,7 +1,9 @@
 package main;
 
 /**
+ * 
  * The Airport class is a blueprint for creating objects that represent airports
+ * @author Jonathan
  */
 public class Airport {
     private Integer airportId;

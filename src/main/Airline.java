@@ -1,7 +1,9 @@
 package main;
 
 /**
+ * 
  * This class is used to store information about an airline
+ * @author Jonathan 
  */
 public class Airline {
     private Integer airlineId;
